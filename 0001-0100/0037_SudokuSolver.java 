@@ -1,0 +1,36 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        backTracking(board, 0, 0);
+    }
+
+    private boolean backTracking(char[][] board, int i, int j) {
+        if (i >= 9) return true;
+        if (board[i][j] != '.') {
+            if (j < 8) return backTracking(board, i, j+1);
+            return backTracking(board, i+1, 0);
+        }
+
+        
+        for (int k = 0;k<9;k++) {
+            if (board[i][k] != '.') row[board[i][k] - '0'-1] = true;
+            if (board[k][j] != '.') col[board[k][j] - '0'-1] = true;
+            int subi = (i / 3) * 3 + k / 3;
+            int subj = (j / 3) * 3 + k % 3;
+            // System.out.println(i+ " " + j + " " + k + " " + subi + " " + subj);
+            if (board[subi][subj] != '.') subbox[board[subi][subj] - '0'-1] = true; 
+        }
+
+        for (int k = 0;k<9;k++) {
+            // set cur value to k
+            if (!row[k] && !col[k] && !subbox[k]) {
+                board[i][j] = (char)('0' + k+1);
+                boolean res;
+                if (j < 8) res = backTracking(board, i, j+1);
+                else res = backTracking(board, i+1, 0);
+                if (res) return true;
+                board[i][j] = '.';
+            } 
+        }
+        return false;
+    }
+}
