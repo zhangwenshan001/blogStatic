@@ -1,0 +1,1 @@
+Spending too much time on Leetcode problems would be tough, but spending 10-20 mins every day for the daily task would be somehow interesting.
